@@ -1,0 +1,23 @@
+# Node dependencies
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# Log files
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.suo
+*.user
+*.sln.docstates
+
+# Environment variables
+.env
