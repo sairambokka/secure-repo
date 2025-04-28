@@ -1,5 +1,6 @@
 const express = require("express");
-const md5 = require("md5");
+// const md5 = require("md5");
+const bcrypt = require('bcrypt');
 
 // Route handler function, receives config from server.js
 module.exports = function (config) {
@@ -15,15 +16,14 @@ module.exports = function (config) {
     }
 
     // Quick search implementation
-    const queryText =
-      "SELECT user_id, username, email FROM users WHERE username LIKE '%" +
-      searchTerm +
-      "%'";
-    console.log(`Executing user search: ${queryText}`); // Debug logging
+    const queryText = "SELECT user_id, username, email FROM users WHERE username LIKE $1";
+    const queryParams = [`%${searchTerm}%`];
+
+    console.log(`Executing user search: ${queryText} with params ${queryParams}`);
 
     try {
       // Simulate query execution for the challenge
-      // const { rows } = await pool.query(queryText);
+      // const { rows } = await pool.query(queryText, queryparams);
       // res.json(rows);
       res.send(
         `(Simulated) Search results for: ${searchTerm}. Query: ${queryText}`
@@ -45,9 +45,9 @@ module.exports = function (config) {
     }
 
     // Hash password before storing (using md5 for now)
-    const hashedPassword = md5(password);
+    const hashedPassword = bcrypt.hash(password, 12);
     console.log(
-      `Registering user: ${username}, Email: ${email}, Hash: ${hashedPassword}`
+      `Registering user: ${username}, Email: ${email}`
     );
 
     // Simulate database insertion

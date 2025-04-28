@@ -1,10 +1,11 @@
 const express = require("express");
+const authMiddleware = require("../middleware/auth");
 
 module.exports = function (config) {
   const router = express.Router();
 
-  // TODO fix authentication and authorization for admin routes
-
+  // Apply authentication middleware to all admin routes
+  router.use(authMiddleware);
   // --- Admin Dashboard ---
   // Provides overview statistics for administrators.
   router.get("/dashboard", (req, res) => {
